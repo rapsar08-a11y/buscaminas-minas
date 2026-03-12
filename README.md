@@ -1,0 +1,2 @@
+# buscaminas-minas
+juego
