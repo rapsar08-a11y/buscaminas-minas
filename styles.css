@@ -1,0 +1,330 @@
+/* ========================================
+   BUSCAMINAS - ESTILOS CSS
+   ======================================== */
+
+/* Reset y variables */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-cell: #0f3460;
+    --bg-cell-revealed: #1a1a2e;
+    --text-primary: #eaeaea;
+    --text-secondary: #a0a0a0;
+    --accent-color: #e94560;
+    --accent-hover: #ff6b6b;
+    --border-color: #0f3460;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    /* Colores para números */
+    --color-1: #3498db;
+    --color-2: #27ae60;
+    --color-3: #e74c3c;
+    --color-4: #9b59b6;
+    --color-5: #f39c12;
+    --color-6: #1abc9c;
+    --color-7: #34495e;
+    --color-8: #95a5a6;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+/* Contenedor principal */
+.container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px var(--shadow-color);
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Panel de controles */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.difficulty-selector label {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.difficulty-selector select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-selector select:hover {
+    border-color: var(--accent-color);
+}
+
+.difficulty-selector select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+}
+
+.btn-new-game {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+}
+
+.btn-new-game:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+}
+
+.btn-new-game:active {
+    transform: translateY(0);
+}
+
+/* Panel de información */
+.info-panel {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-secondary);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.info-icon {
+    font-size: 1.3rem;
+}
+
+/* Estado del juego */
+.game-status {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-status.win {
+    color: #27ae60;
+    text-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+}
+
+.game-status.lose {
+    color: #e74c3c;
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+/* Tablero de juego */
+.board {
+    display: grid;
+    gap: 2px;
+    background: var(--border-color);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px var(--shadow-color);
+    margin: 0 auto;
+}
+
+/* Celdas */
+.cell {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-cell);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+    user-select: none;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cell:hover:not(.revealed):not(.flagged) {
+    background: #1a4a7a;
+    transform: scale(1.05);
+}
+
+.cell.revealed {
+    background: var(--bg-cell-revealed);
+    cursor: default;
+    border-color: rgba(255, 255, 255, 0.02);
+}
+
+.cell.flagged {
+    background: var(--bg-cell);
+}
+
+.cell.mine {
+    background: #e74c3c !important;
+    animation: explode 0.3s ease;
+}
+
+.cell.mine-wrong {
+    background: #ff6b6b !important;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Colores de números */
+.cell.num-1 { color: var(--color-1); }
+.cell.num-2 { color: var(--color-2); }
+.cell.num-3 { color: var(--color-3); }
+.cell.num-4 { color: var(--color-4); }
+.cell.num-5 { color: var(--color-5); }
+.cell.num-6 { color: var(--color-6); }
+.cell.num-7 { color: var(--color-7); }
+.cell.num-8 { color: var(--color-8); }
+
+/* Instrucciones */
+.instructions {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.instructions ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.instructions li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.instructions li strong {
+    color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .cell {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+    
+    .info-panel {
+        gap: 15px;
+    }
+    
+    .info-box {
+        padding: 8px 15px;
+        font-size: 1rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .instructions ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+/* Animación de victoria */
+@keyframes celebrate {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.board.win .cell {
+    animation: celebrate 0.5s ease;
+}
+
+/* Efecto de presión en celdas */
+.cell:active:not(.revealed) {
+    transform: scale(0.95);
+}
