@@ -1,0 +1,60 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaminas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💣 Buscaminas</h1>
+        
+        <!-- Panel de control -->
+        <div class="controls">
+            <div class="difficulty-selector">
+                <label for="difficulty">Dificultad:</label>
+                <select id="difficulty">
+                    <option value="easy">Fácil (9x9, 10 minas)</option>
+                    <option value="medium">Medio (16x16, 40 minas)</option>
+                    <option value="hard">Difícil (16x30, 99 minas)</option>
+                </select>
+            </div>
+            <button id="new-game" class="btn-new-game"> Nueva Partida</button>
+        </div>
+
+        <!-- Panel de información -->
+        <div class="info-panel">
+            <div class="info-box">
+                <span class="info-icon">💣</span>
+                <span id="mines-count">10</span>
+            </div>
+            <div class="info-box">
+                <span class="info-icon">🚩</span>
+                <span id="flags-count">0</span>
+            </div>
+            <div class="info-box">
+                <span class="info-icon">⏱️</span>
+                <span id="timer">000</span>
+            </div>
+        </div>
+
+        <!-- Estado del juego -->
+        <div id="game-status" class="game-status"></div>
+
+        <!-- Tablero de juego -->
+        <div id="board" class="board"></div>
+
+        <!-- Instrucciones -->
+        <div class="instructions">
+            <h3>Cómo jugar:</h3>
+            <ul>
+                <li><strong>Clic izquierdo:</strong> Revelar celda</li>
+                <li><strong>Clic derecho:</strong> Colocar/quitar bandera</li>
+                <li><strong>Objetivo:</strong> Revelar todas las celdas sin minas</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
